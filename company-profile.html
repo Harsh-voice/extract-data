@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora — Company Profile 2024/25</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --ink:          #1A1A2E;
+      --ink-mid:      #2D2D44;
+      --body:         #3C3C50;
+      --muted:        #7A7A92;
+      --border:       #E2E2EC;
+      --bg-page:      #FFFFFF;
+      --bg-soft:      #F6F6FB;
+      --accent:       #4A4FD4;
+      --accent-dark:  #353AC0;
+      --accent-light: #6B70DC;
+      --accent-faint: rgba(74,79,212,0.06);
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #DCDCE8;
+      color: var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Page Shell ────────────────────────────────────────────── */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: var(--bg-page);
+      margin: 0 auto 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(26,26,46,0.18), 0 2px 8px rgba(26,26,46,0.08);
+    }
+
+    /* ─── Typography helpers ────────────────────────────────────── */
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+    .display { font-family: 'Montserrat', sans-serif; }
+
+    .section-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ─── Running Header / Footer (inner pages) ─────────────────── */
+    .page-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 12mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14mm;
+      border-bottom: 0.4px solid var(--border);
+    }
+    .page-header span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 10mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14mm;
+      border-top: 0.4px solid var(--border);
+    }
+    .page-footer span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── Accent / Graphic helpers ──────────────────────────────── */
+    .v-rule { width: 2px; background: var(--accent); }
+    .h-rule { height: 1px; background: var(--border); }
+    .h-rule-accent { height: 2px; background: var(--accent); }
+
+    .bg-accent { background: var(--accent); }
+    .bg-ink    { background: var(--ink); }
+    .text-accent { color: var(--accent); }
+    .text-ink    { color: var(--ink); }
+    .text-muted  { color: var(--muted); }
+
+    /* ─── Ghost page number ─────────────────────────────────────── */
+    .ghost-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 100px;
+      font-weight: 900;
+      color: rgba(74,79,212,0.055);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ─── Service card ──────────────────────────────────────────── */
+    .svc-card {
+      border: 1px solid var(--border);
+      background: white;
+      position: relative;
+      padding: 18px 18px 18px 22px;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+
+    /* ─── Team card ─────────────────────────────────────────────── */
+    .team-card { border: 1px solid var(--border); overflow: hidden; }
+    .team-photo {
+      height: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── Value icon ─────────────────────────────────────────────── */
+    .val-icon {
+      width: 34px; height: 34px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ─── KPI pill ───────────────────────────────────────────────── */
+    .kpi-box {
+      border: 1px solid rgba(74,79,212,0.25);
+      background: var(--accent-faint);
+      padding: 10px 14px;
+    }
+
+    /* ─── TOC row ────────────────────────────────────────────────── */
+    .toc-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      border-bottom: 0.5px solid var(--border);
+      padding: 7px 0;
+    }
+    .toc-dots {
+      flex: 1;
+      border-bottom: 1px dotted var(--border);
+      margin: 0 8px;
+      position: relative;
+      top: -3px;
+    }
+
+    /* ─── Web navigation bar ────────────────────────────────────── */
+    .web-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: var(--ink);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+    }
+    .web-nav a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .web-nav a:hover { background: var(--accent); color: white; }
+    .web-nav-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: white;
+      text-transform: uppercase;
+      margin-right: 16px;
+    }
+    .nav-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.15); margin: 0 6px; }
+
+    /* ─── Body scroll offset ────────────────────────────────────── */
+    .page-wrapper {
+      padding-top: 52px;
+      padding-bottom: 40px;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       PRINT MEDIA QUERIES
+       ════════════════════════════════════════════════════════════ */
+    @media print {
+      @page { size: A4; margin: 0; }
+
+      body { background: white !important; }
+
+      .web-nav, .page-wrapper > .web-nav { display: none !important; }
+
+      .page-wrapper { padding: 0 !important; }
+
+      .page {
+        width: 210mm !important;
+        height: 297mm !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        break-after: page;
+        page-break-after: always;
+        overflow: hidden !important;
+      }
+
+      .page:last-of-type {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WEB NAVIGATION (hidden on print)
+════════════════════════════════════════════════════════════ -->
+<nav class="web-nav">
+  <span class="web-nav-brand">Nexora</span>
+  <div class="nav-sep"></div>
+  <a href="#cover">Cover</a>
+  <a href="#toc">Contents</a>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#team">Team</a>
+  <a href="#case-study">Case Study</a>
+  <a href="#back-cover">Contact</a>
+  <div style="flex:1"></div>
+  <span style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:500;letter-spacing:1px;color:rgba(255,255,255,0.35);">Press Ctrl+P / ⌘P to export as A4 PDF</span>
+</nav>
+
+<div class="page-wrapper">
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 1 — COVER                                            ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="cover" style="background: var(--ink);">
+
+  <!-- Abstract geometric SVG background -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12;" viewBox="0 0 794 1123" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="650" cy="200" r="320" fill="none" stroke="#ffffff" stroke-width="1"/>
+    <circle cx="650" cy="200" r="220" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+    <circle cx="650" cy="200" r="120" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="900" x2="794" y2="400" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="700" x2="794" y2="200" stroke="#ffffff" stroke-width="0.5"/>
+    <polygon points="700,800 794,600 794,1000" fill="rgba(255,255,255,0.04)"/>
+    <polygon points="0,300 200,0 400,300" fill="rgba(255,255,255,0.03)"/>
+  </svg>
+
+  <!-- Right accent block -->
+  <div style="position:absolute;right:0;top:0;bottom:0;width:38mm;background:var(--accent);opacity:0.92;"></div>
+
+  <!-- Right block decorative elements -->
+  <div style="position:absolute;right:0;top:0;bottom:0;width:38mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:2;">
+    <div style="width:1px;flex:1;max-height:80mm;background:rgba(255,255,255,0.3);"></div>
+    <span style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.7);writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase;">Company Profile</span>
+    <div style="width:1px;flex:1;max-height:80mm;background:rgba(255,255,255,0.3);"></div>
+  </div>
+
+  <!-- Main content area -->
+  <div style="position:absolute;left:0;top:0;right:38mm;bottom:0;display:flex;flex-direction:column;padding:14mm 10mm 14mm 14mm;">
+
+    <!-- Top bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;">
+      <!-- Logo mark -->
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:30px;height:30px;position:relative;">
+          <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15" r="13" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+            <circle cx="15" cy="15" r="6" fill="var(--accent)"/>
+            <line x1="15" y1="2" x2="15" y2="8" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+            <line x1="15" y1="22" x2="15" y2="28" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+            <line x1="2" y1="15" x2="8" y2="15" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+            <line x1="22" y1="15" x2="28" y2="15" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;letter-spacing:4px;color:white;text-transform:uppercase;">NEXORA</span>
+      </div>
+      <span style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:500;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase;">nexora.com</span>
+    </div>
+
+    <!-- Year tag -->
+    <div style="margin-top:auto;margin-bottom:6mm;">
+      <div style="display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;gap:8px;">
+        <div style="width:5px;height:5px;background:var(--accent);"></div>
+        <span style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;color:rgba(255,255,255,0.6);text-transform:uppercase;">2024 / 25</span>
+      </div>
+    </div>
+
+    <!-- Main Headline -->
+    <div style="margin-bottom:5mm;">
+      <h1 class="serif" style="font-size:52px;font-weight:800;line-height:1.08;color:white;letter-spacing:-1px;">
+        The<br/>
+        <em style="color:var(--accent-light);font-style:italic;">Future</em><br/>
+        Belongs to<br/>
+        <span style="color:white;">Builders.</span>
+      </h1>
+    </div>
+
+    <!-- Thin rule -->
+    <div style="width:50mm;height:2px;background:var(--accent);margin-bottom:5mm;"></div>
+
+    <!-- Sub-text -->
+    <p style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:400;line-height:1.7;color:rgba(255,255,255,0.55);max-width:100mm;margin-bottom:8mm;">
+      A strategic partner for organizations navigating digital transformation, operational excellence, and sustainable growth in an era of rapid change.
+    </p>
+
+    <!-- Bottom stat row -->
+    <div style="display:flex;gap:8mm;margin-bottom:0;padding-top:5mm;border-top:0.5px solid rgba(255,255,255,0.1);">
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:900;color:white;line-height:1;">4.5K</div>
+        <div style="font-family:'Inter',sans-serif;font-size:7px;font-weight:400;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:3px;">Clients Served</div>
+      </div>
+      <div style="width:0.5px;background:rgba(255,255,255,0.12);"></div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:900;color:white;line-height:1;">18+</div>
+        <div style="font-family:'Inter',sans-serif;font-size:7px;font-weight:400;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:3px;">Years Active</div>
+      </div>
+      <div style="width:0.5px;background:rgba(255,255,255,0.12);"></div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:900;color:white;line-height:1;">34</div>
+        <div style="font-family:'Inter',sans-serif;font-size:7px;font-weight:400;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-top:3px;">Countries</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Small decorative marks on accent block -->
+  <div style="position:absolute;right:4mm;bottom:14mm;z-index:3;display:flex;flex-direction:column;gap:3px;">
+    <div style="width:16px;height:2px;background:rgba(255,255,255,0.5);"></div>
+    <div style="width:10px;height:2px;background:rgba(255,255,255,0.25);"></div>
+    <div style="width:6px;height:2px;background:rgba(255,255,255,0.15);"></div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 2 — TABLE OF CONTENTS + CEO WELCOME                 ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="toc">
+
+  <!-- Running header -->
+  <div class="page-header">
+    <span>Company Profile</span>
+    <span>Table of Contents</span>
+  </div>
+
+  <!-- Ghost number -->
+  <div class="ghost-num" style="position:absolute;right:10mm;bottom:20mm;">02</div>
+
+  <!-- 2-column layout -->
+  <div style="position:absolute;inset:12mm 12mm 10mm 12mm;top:14mm;display:grid;grid-template-columns:1fr 2px 1fr;gap:0;">
+
+    <!-- LEFT — Table of Contents -->
+    <div style="padding:8mm 8mm 8mm 2mm;">
+      <div class="section-eyebrow" style="margin-bottom:3mm;">Navigation</div>
+      <h2 class="serif" style="font-size:28px;font-weight:700;line-height:1.15;color:var(--ink);margin-bottom:7mm;">
+        Table Of<br/><em>Contents</em>
+      </h2>
+
+      <p style="font-size:8px;line-height:1.7;color:var(--muted);max-width:72mm;margin-bottom:6mm;">
+        This document presents a comprehensive overview of Nexora Group — our history, capabilities, team, and vision for the years ahead.
+      </p>
+
+      <!-- TOC items -->
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">01</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">The Company</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">03</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">02</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Our History</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">04</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">03</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Core Values</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">05</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">04</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Our Services</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">06</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">05</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Leadership Team</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">07</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">06</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Case Study</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">08</span>
+        </div>
+        <div class="toc-row">
+          <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;color:var(--accent);min-width:14px;">07</span>
+          <span style="font-size:8.5px;font-weight:500;color:var(--ink);padding-left:8px;flex:1;">Contact &amp; Address</span>
+          <div class="toc-dots"></div>
+          <span style="font-size:8px;color:var(--muted);font-weight:400;">09</span>
+        </div>
+      </div>
+
+      <!-- Image placeholder bottom-left -->
+      <div style="margin-top:6mm;width:100%;height:38mm;background:var(--accent);position:relative;overflow:hidden;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="180" height="130" fill="none" stroke="white" stroke-width="1"/>
+          <line x1="10" y1="10" x2="190" y2="140" stroke="white" stroke-width="0.5"/>
+          <line x1="190" y1="10" x2="10" y2="140" stroke="white" stroke-width="0.5"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <span style="font-family:'Inter',sans-serif;font-size:7px;font-weight:500;letter-spacing:2px;color:rgba(255,255,255,0.6);text-transform:uppercase;">Headquarters</span>
+          <span style="font-family:'Inter',sans-serif;font-size:8.5px;font-weight:300;color:rgba(255,255,255,0.4);margin-top:3px;">Building Exterior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column divider -->
+    <div style="background:var(--border);margin:4mm 0;"></div>
+
+    <!-- RIGHT — CEO Welcome Letter -->
+    <div style="padding:8mm 2mm 8mm 8mm;">
+      <div class="section-eyebrow" style="margin-bottom:3mm;">From the Desk of</div>
+      <h2 class="serif" style="font-size:24px;font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:5mm;">
+        A Word From<br/>Our <em>Chairman</em>
+      </h2>
+
+      <div style="width:30mm;height:2px;background:var(--accent);margin-bottom:5mm;"></div>
+
+      <p style="font-size:8px;line-height:1.85;color:var(--body);margin-bottom:3.5mm;">
+        It is with great pride and a deep sense of purpose that I present this company profile — a testament to the extraordinary people, partnerships, and principles that have shaped Nexora over the past eighteen years.
+      </p>
+      <p style="font-size:8px;line-height:1.85;color:var(--body);margin-bottom:3.5mm;">
+        We believe that enduring businesses are not built on transactions alone, but on trust. Trust earned through consistent delivery, intellectual honesty, and an unwavering commitment to our clients' long-term success. That belief has guided every decision we have made since our founding.
+      </p>
+      <p style="font-size:8px;line-height:1.85;color:var(--body);margin-bottom:3.5mm;">
+        Today, Nexora operates across four continents, serving some of the world's most ambitious organizations. Yet our culture remains as it was from day one — curious, collaborative, and relentlessly focused on outcomes that matter.
+      </p>
+      <p style="font-size:8px;line-height:1.85;color:var(--body);margin-bottom:6mm;">
+        I invite you to explore this document as both a reflection of where we have come from, and a declaration of where we are headed. The best of Nexora is still ahead of us.
+      </p>
+
+      <!-- Signature -->
+      <div style="margin-bottom:4mm;">
+        <svg width="90" height="36" viewBox="0 0 90 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5,28 C10,10 18,8 22,14 C26,20 22,30 28,26 C34,22 30,8 38,10 C46,12 44,30 50,26 C56,22 52,10 60,12 C68,14 65,28 72,24 C78,20 75,10 84,16" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div style="width:20mm;height:1px;background:var(--border);margin-bottom:3mm;"></div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;color:var(--ink);letter-spacing:1px;">JAMES ALDERTON</div>
+      <div style="font-size:7.5px;color:var(--muted);margin-top:1mm;letter-spacing:0.5px;">Chairman &amp; Chief Executive Officer</div>
+      <div style="font-size:7px;color:var(--muted);margin-top:1mm;">Nexora Group, Inc.</div>
+
+      <!-- Pull quote -->
+      <div style="margin-top:7mm;padding:8px 10px;border-left:2.5px solid var(--accent);background:var(--accent-faint);">
+        <p style="font-family:'Playfair Display',serif;font-size:9px;font-style:italic;line-height:1.65;color:var(--ink);">"Enduring businesses are not built on transactions alone, but on trust earned through consistent delivery."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <span>Nexora Group — Confidential</span>
+    <span style="font-weight:700;color:var(--accent);">02</span>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 3 — ABOUT + CORE VALUES                             ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="about">
+
+  <div class="page-header">
+    <span>Company Profile</span>
+    <span>About Nexora</span>
+  </div>
+
+  <div class="ghost-num" style="position:absolute;right:10mm;bottom:20mm;">03</div>
+
+  <div style="position:absolute;inset:0;top:12mm;bottom:10mm;display:grid;grid-template-columns:1fr 2px 1fr;gap:0;">
+
+    <!-- LEFT: About + History -->
+    <div style="padding:7mm 8mm 7mm 12mm;overflow:hidden;">
+      <div class="section-eyebrow" style="margin-bottom:2.5mm;">Who We Are</div>
+      <h2 class="serif" style="font-size:26px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:4mm;">
+        About<br/><em>Our Company</em>
+      </h2>
+      <div style="width:24mm;height:2px;background:var(--accent);margin-bottom:4mm;"></div>
+
+      <p style="font-size:7.8px;line-height:1.85;color:var(--body);margin-bottom:3mm;">
+        Nexora Group was founded in 2006 in London with a singular purpose: to help ambitious organizations navigate complexity and emerge stronger. What began as a boutique strategy consultancy has grown into a full-service transformation partner trusted by Fortune 500 companies, fast-growth startups, and public institutions alike.
+      </p>
+      <p style="font-size:7.8px;line-height:1.85;color:var(--body);margin-bottom:5mm;">
+        Our integrated model spans advisory, technology implementation, and organizational capability-building — enabling us to deliver end-to-end solutions that create measurable, lasting impact.
+      </p>
+
+      <!-- Timeline -->
+      <div class="section-eyebrow" style="margin-bottom:3mm;">Our History</div>
+
+      <div style="position:relative;padding-left:14px;">
+        <!-- vertical line -->
+        <div style="position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border);"></div>
+
+        <!-- 2006 -->
+        <div style="position:relative;margin-bottom:5mm;">
+          <div style="position:absolute;left:-14px;top:3px;width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);background:white;"></div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:800;color:var(--accent);letter-spacing:0.5px;margin-bottom:1mm;">2006</div>
+          <div style="font-size:8px;font-weight:600;color:var(--ink);margin-bottom:1mm;">Founded in London</div>
+          <div style="font-size:7.5px;line-height:1.6;color:var(--muted);">Nexora launched as a three-person strategy consultancy, securing its first FTSE 100 client within six months.</div>
+        </div>
+
+        <!-- 2011 -->
+        <div style="position:relative;margin-bottom:5mm;">
+          <div style="position:absolute;left:-14px;top:3px;width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);background:white;"></div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:800;color:var(--accent);letter-spacing:0.5px;margin-bottom:1mm;">2011</div>
+          <div style="font-size:8px;font-weight:600;color:var(--ink);margin-bottom:1mm;">Technology Practice Launched</div>
+          <div style="font-size:7.5px;line-height:1.6;color:var(--muted);">Established a dedicated digital transformation practice, expanding to offices in New York and Singapore.</div>
+        </div>
+
+        <!-- 2017 -->
+        <div style="position:relative;margin-bottom:5mm;">
+          <div style="position:absolute;left:-14px;top:3px;width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);background:white;"></div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:800;color:var(--accent);letter-spacing:0.5px;margin-bottom:1mm;">2017</div>
+          <div style="font-size:8px;font-weight:600;color:var(--ink);margin-bottom:1mm;">Acquisition of DataFlow Inc.</div>
+          <div style="font-size:7.5px;line-height:1.6;color:var(--muted);">Strategic acquisition of data analytics pioneer DataFlow, adding 140 specialists and proprietary IP to the group.</div>
+        </div>
+
+        <!-- 2024 -->
+        <div style="position:relative;">
+          <div style="position:absolute;left:-14px;top:3px;width:9px;height:9px;border-radius:50%;background:var(--accent);"></div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:800;color:var(--accent);letter-spacing:0.5px;margin-bottom:1mm;">2024</div>
+          <div style="font-size:8px;font-weight:600;color:var(--ink);margin-bottom:1mm;">Global Expansion &amp; AI Division</div>
+          <div style="font-size:7.5px;line-height:1.6;color:var(--muted);">Nexora AI launched, combining applied machine learning research with enterprise deployment capabilities.</div>
+        </div>
+      </div>
+
+      <!-- Stat bar -->
+      <div style="margin-top:5mm;padding:7px 10px;background:var(--accent);display:flex;gap:6mm;align-items:center;">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:900;color:white;line-height:1;">4.5K</div>
+          <div style="font-size:6.5px;color:rgba(255,255,255,0.65);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;">Clients Globally</div>
+        </div>
+        <div style="width:0.5px;height:28px;background:rgba(255,255,255,0.25);"></div>
+        <div style="flex:1;font-size:7.5px;line-height:1.6;color:rgba(255,255,255,0.75);">
+          Serving clients across financial services, healthcare, manufacturing, and public sector verticals.
+        </div>
+      </div>
+    </div>
+
+    <!-- Column divider -->
+    <div style="background:var(--border);margin:4mm 0;"></div>
+
+    <!-- RIGHT: Core Values -->
+    <div style="padding:7mm 12mm 7mm 8mm;overflow:hidden;">
+      <div class="section-eyebrow" style="margin-bottom:2.5mm;">Our Principles</div>
+      <h2 class="serif" style="font-size:26px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:4mm;">
+        The Company<br/><em>Values</em>
+      </h2>
+      <div style="width:24mm;height:2px;background:var(--accent);margin-bottom:4mm;"></div>
+      <p style="font-size:7.8px;line-height:1.8;color:var(--body);margin-bottom:6mm;">
+        We admire people who combine rigorous thinking with genuine care. Our six core values define not just how we work, but how we lead and grow.
+      </p>
+
+      <!-- 3×2 Values grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5mm;">
+
+        <!-- Value 1 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Vision</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">We anticipate shifts before they arrive and orient our strategies to meet tomorrow's challenges today.</div>
+        </div>
+
+        <!-- Value 2 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Collaboration</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">We believe the best outcomes emerge from diverse minds working in concert — internally and with our clients.</div>
+        </div>
+
+        <!-- Value 3 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Excellence</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">We hold ourselves to the highest standard in every engagement — from initial brief to final delivery.</div>
+        </div>
+
+        <!-- Value 4 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Integrity</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">We say what we mean, do what we say, and surface difficult truths with compassion and clarity.</div>
+        </div>
+
+        <!-- Value 5 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 2a10 10 0 0 0 0 20"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Global Mindset</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">We bring cross-cultural intelligence and local market expertise to every client engagement worldwide.</div>
+        </div>
+
+        <!-- Value 6 -->
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--border);">
+          <div class="val-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);letter-spacing:0.3px;">Impact</div>
+          <div style="font-size:7.2px;line-height:1.65;color:var(--muted);">Our measure of success is simple: did we create tangible, lasting value for our clients and communities?</div>
+        </div>
+      </div>
+
+      <!-- Bottom mission box -->
+      <div style="margin-top:5mm;padding:9px 12px;border:1px solid var(--accent);background:var(--accent-faint);">
+        <div class="section-eyebrow" style="margin-bottom:2mm;">Our Mission</div>
+        <p style="font-size:7.5px;line-height:1.7;color:var(--body);">To empower organizations to realize their full potential by combining human insight with analytical rigor and the courage to challenge convention.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Nexora Group — Confidential</span>
+    <span style="font-weight:700;color:var(--accent);">03</span>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 4 — SERVICES PORTFOLIO                              ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="services">
+
+  <div class="page-header">
+    <span>Company Profile</span>
+    <span>Our Services</span>
+  </div>
+
+  <div class="ghost-num" style="position:absolute;right:10mm;bottom:20mm;">04</div>
+
+  <div style="position:absolute;inset:0;top:14mm;bottom:10mm;padding:6mm 12mm;">
+
+    <!-- Section header -->
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:8mm;align-items:end;margin-bottom:6mm;">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2mm;">What We Do</div>
+        <h2 class="serif" style="font-size:32px;font-weight:700;color:var(--ink);line-height:1.1;">
+          Our<br/><em>Services</em>
+        </h2>
+      </div>
+      <div style="padding-bottom:4px;">
+        <div style="height:1px;background:var(--border);margin-bottom:8px;"></div>
+        <p style="font-size:8px;line-height:1.8;color:var(--muted);max-width:90mm;">
+          There are many variations of approaches to modern consulting — we deliver the ones that create measurable impact across the full transformation lifecycle.
+        </p>
+      </div>
+    </div>
+
+    <!-- Services grid — asymmetric 3-column -->
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:5mm;margin-bottom:5mm;">
+
+      <!-- Service 1 — Large featured card -->
+      <div class="svc-card" style="padding:20px 20px 20px 23px;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:3mm;">01</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Digital<br/>Transformation</h3>
+        <div style="width:16mm;height:1.5px;background:var(--accent);margin-bottom:3mm;"></div>
+        <p style="font-size:7.5px;line-height:1.8;color:var(--body);margin-bottom:3mm;">End-to-end programs that modernize technology stacks, reshape operating models, and embed digital capabilities into the heart of your organization.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:7.2px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Cloud architecture &amp; migration</li>
+          <li style="font-size:7.2px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>API design &amp; platform modernization</li>
+          <li style="font-size:7.2px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Digital operating model design</li>
+          <li style="font-size:7.2px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Change management &amp; adoption</li>
+        </ul>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="svc-card">
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:3mm;">02</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Strategy &amp;<br/>Advisory</h3>
+        <div style="width:12mm;height:1.5px;background:var(--accent);margin-bottom:3mm;"></div>
+        <p style="font-size:7.2px;line-height:1.8;color:var(--body);margin-bottom:3mm;">Rigorous analysis and bold strategic thinking to define where you should play, how you should win, and what you need to build.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Corporate strategy</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Market entry &amp; growth</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>M&amp;A due diligence</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Competitive intelligence</li>
+        </ul>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="svc-card">
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:3mm;">03</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Data &amp;<br/>Analytics</h3>
+        <div style="width:12mm;height:1.5px;background:var(--accent);margin-bottom:3mm;"></div>
+        <p style="font-size:7.2px;line-height:1.8;color:var(--body);margin-bottom:3mm;">Turning raw data into competitive advantage through modern data architecture, advanced analytics, and AI-powered decision intelligence.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Data platform engineering</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Predictive &amp; prescriptive analytics</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Machine learning deployment</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Executive dashboards</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Second row of services -->
+    <div style="display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:5mm;">
+
+      <!-- Service 4 -->
+      <div class="svc-card">
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:3mm;">04</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Org Design &amp;<br/>Talent</h3>
+        <div style="width:12mm;height:1.5px;background:var(--accent);margin-bottom:3mm;"></div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Operating model redesign</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Leadership assessment</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Culture transformation</li>
+        </ul>
+      </div>
+
+      <!-- Service 5 — featured bottom middle -->
+      <div style="background:var(--ink);padding:18px 18px 18px 21px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--accent-light);"></div>
+        <svg style="position:absolute;right:-10px;top:-10px;opacity:0.07;" width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" fill="none" stroke="white" stroke-width="1"/>
+          <circle cx="40" cy="40" r="25" fill="none" stroke="white" stroke-width="1"/>
+          <circle cx="40" cy="40" r="12" fill="white"/>
+        </svg>
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent-light);text-transform:uppercase;margin-bottom:3mm;">05</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:white;line-height:1.3;margin-bottom:3mm;">Product &amp;<br/>Experience</h3>
+        <div style="width:12mm;height:1.5px;background:var(--accent-light);margin-bottom:3mm;"></div>
+        <p style="font-size:7.2px;line-height:1.8;color:rgba(255,255,255,0.6);">Human-centered design, UX strategy, and product development that drives engagement and loyalty.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:3mm;">
+          <li style="font-size:7px;color:rgba(255,255,255,0.5);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent-light);margin-top:1px;">—</span>UX research &amp; design</li>
+          <li style="font-size:7px;color:rgba(255,255,255,0.5);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent-light);margin-top:1px;">—</span>Product strategy</li>
+          <li style="font-size:7px;color:rgba(255,255,255,0.5);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent-light);margin-top:1px;">—</span>Innovation sprints</li>
+        </ul>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="svc-card">
+        <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:3mm;">06</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Risk &amp;<br/>Compliance</h3>
+        <div style="width:12mm;height:1.5px;background:var(--accent);margin-bottom:3mm;"></div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Regulatory readiness</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>Cyber resilience</li>
+          <li style="font-size:7px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">—</span>ESG &amp; reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Nexora Group — Confidential</span>
+    <span style="font-weight:700;color:var(--accent);">04</span>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 5 — LEADERSHIP TEAM                                 ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="team">
+
+  <div class="page-header">
+    <span>Company Profile</span>
+    <span>Leadership Team</span>
+  </div>
+
+  <div class="ghost-num" style="position:absolute;right:10mm;bottom:20mm;">05</div>
+
+  <div style="position:absolute;inset:0;top:14mm;bottom:10mm;padding:6mm 12mm;">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6mm;">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2mm;">The People Behind the Work</div>
+        <h2 class="serif" style="font-size:30px;font-weight:700;color:var(--ink);line-height:1.1;">
+          Our <em>Leadership</em>
+        </h2>
+      </div>
+      <div style="text-align:right;padding-bottom:4px;">
+        <div style="height:1px;background:var(--border);margin-bottom:8px;width:60mm;"></div>
+        <p style="font-size:7.5px;line-height:1.7;color:var(--muted);max-width:75mm;text-align:left;">We admire people with these traits — intellect, empathy, and a bias for action. Our leadership team embodies exactly that.</p>
+      </div>
+    </div>
+
+    <!-- Team grid — 2 rows × 4 cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-bottom:5mm;">
+
+      <!-- CEO -->
+      <div class="team-card">
+        <div class="team-photo" style="background:var(--accent);">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+          <div style="position:absolute;bottom:6px;right:8px;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:rgba(255,255,255,0.12);">CEO</div>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">James Alderton</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Chairman &amp; CEO</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">25 years in enterprise transformation. Former McKinsey partner. Oxford MBA.</p>
+        </div>
+      </div>
+
+      <!-- COO -->
+      <div class="team-card">
+        <div class="team-photo" style="background:#3C3C6A;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+          <div style="position:absolute;bottom:6px;right:8px;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:rgba(255,255,255,0.12);">COO</div>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Sofia Marchetti</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Chief Operating Officer</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Operational scaling expert. Led 3 Fortune 500 transformations. MIT Sloan.</p>
+        </div>
+      </div>
+
+      <!-- CTO -->
+      <div class="team-card">
+        <div class="team-photo" style="background:#2A3570;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+          <div style="position:absolute;bottom:6px;right:8px;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:rgba(255,255,255,0.12);">CTO</div>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Daniel Yuen</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Chief Technology Officer</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Cloud architect &amp; AI researcher. Ex-Google. Stanford CS, PhD Berkeley.</p>
+        </div>
+      </div>
+
+      <!-- CFO -->
+      <div class="team-card">
+        <div class="team-photo" style="background:#1F3A5F;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+          <div style="position:absolute;bottom:6px;right:8px;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;color:rgba(255,255,255,0.12);">CFO</div>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Priya Nair</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Chief Financial Officer</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Capital markets &amp; M&amp;A specialist. Ex-Goldman Sachs. Harvard Business School.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-bottom:5mm;">
+
+      <div class="team-card">
+        <div class="team-photo" style="background:#374785;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Marcus Webb</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Head of Strategy</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Led market entry programs across 12 sectors. LSE Economics, BCG alumni.</p>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:#4A3060;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Aisha Suleiman</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">VP, Client Success</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Client relationship &amp; growth expert. 14 years in enterprise advisory services.</p>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:#1E4D6B;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Rafael Torres</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Head of Design</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Ex-IDEO. Pioneer of human-centered design in enterprise contexts. RISD.</p>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:#2E5045;">
+          <svg width="40" height="56" viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="16" r="11" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <path d="M2 56 C2 38 38 38 38 56" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div style="padding:8px 10px 10px;">
+          <div style="font-size:8.5px;font-weight:700;color:var(--ink);">Nina Kowalski</div>
+          <div style="font-size:7px;color:var(--accent);font-weight:600;letter-spacing:0.5px;margin-top:1px;">Head of Data Science</div>
+          <div style="height:0.5px;background:var(--border);margin:5px 0;"></div>
+          <p style="font-size:6.8px;line-height:1.6;color:var(--muted);">Published ML researcher. Leads a team of 60 data scientists globally. MIT.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom callout -->
+    <div style="display:flex;align-items:center;gap:4mm;padding:8px 14px;background:var(--bg-soft);border:1px solid var(--border);">
+      <div style="width:3px;height:28px;background:var(--accent);flex-shrink:0;"></div>
+      <p style="font-size:7.5px;line-height:1.7;color:var(--body);flex:1;">
+        <strong style="color:var(--ink);">240+ professionals</strong> across London, New York, Singapore, and Dubai — united by a shared commitment to transformative outcomes and intellectual rigor.
+      </p>
+      <div style="text-align:right;flex-shrink:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:var(--accent);line-height:1;">240<span style="font-size:13px;">+</span></div>
+        <div style="font-size:6.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;">Professionals</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>Nexora Group — Confidential</span>
+    <span style="font-weight:700;color:var(--accent);">05</span>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 6 — CASE STUDY / PROJECT SHOWCASE                  ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="case-study">
+
+  <div class="page-header">
+    <span>Company Profile</span>
+    <span>Case Study</span>
+  </div>
+
+  <div class="ghost-num" style="position:absolute;left:10mm;bottom:20mm;">06</div>
+
+  <!-- FULL-WIDTH top image block -->
+  <div style="position:absolute;top:12mm;left:0;right:0;height:68mm;background:var(--ink);overflow:hidden;">
+    <!-- Abstract cityscape SVG -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5;" viewBox="0 0 794 258" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="794" height="258" fill="url(#skyGrad)"/>
+      <defs>
+        <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#1A1A2E;stop-opacity:1"/>
+          <stop offset="100%" style="stop-color:#2D2D60;stop-opacity:1"/>
+        </linearGradient>
+      </defs>
+      <!-- Buildings silhouette -->
+      <rect x="0"   y="160" width="60"  height="98" fill="rgba(255,255,255,0.04)"/>
+      <rect x="55"  y="120" width="40"  height="138" fill="rgba(255,255,255,0.05)"/>
+      <rect x="90"  y="80"  width="55"  height="178" fill="rgba(255,255,255,0.06)"/>
+      <rect x="140" y="100" width="35"  height="158" fill="rgba(255,255,255,0.04)"/>
+      <rect x="170" y="60"  width="70"  height="198" fill="rgba(255,255,255,0.07)"/>
+      <rect x="235" y="90"  width="45"  height="168" fill="rgba(255,255,255,0.05)"/>
+      <rect x="275" y="40"  width="80"  height="218" fill="rgba(255,255,255,0.08)"/>
+      <rect x="350" y="70"  width="50"  height="188" fill="rgba(255,255,255,0.05)"/>
+      <rect x="395" y="30"  width="90"  height="228" fill="rgba(74,79,212,0.3)"/>
+      <rect x="480" y="80"  width="55"  height="178" fill="rgba(255,255,255,0.05)"/>
+      <rect x="530" y="50"  width="70"  height="208" fill="rgba(255,255,255,0.06)"/>
+      <rect x="595" y="100" width="45"  height="158" fill="rgba(255,255,255,0.04)"/>
+      <rect x="635" y="70"  width="65"  height="188" fill="rgba(255,255,255,0.07)"/>
+      <rect x="695" y="110" width="40"  height="148" fill="rgba(255,255,255,0.05)"/>
+      <rect x="730" y="130" width="64"  height="128" fill="rgba(255,255,255,0.04)"/>
+      <!-- Grid lines overlay -->
+      <line x1="0" y1="258" x2="794" y2="258" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+    </svg>
+
+    <!-- Image overlay label -->
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:8mm 14mm;">
+      <div class="section-eyebrow" style="color:rgba(255,255,255,0.5);margin-bottom:2mm;">Flagship Project — 2023</div>
+      <h2 class="serif" style="font-size:26px;font-weight:700;line-height:1.15;color:white;max-width:120mm;">
+        <em>Meridian</em> Financial Group:<br/>
+        Core Banking Transformation
+      </h2>
+    </div>
+
+    <!-- Right-side KPI strip -->
+    <div style="position:absolute;top:0;right:0;bottom:0;width:55mm;background:var(--accent);display:flex;flex-direction:column;justify-content:center;padding:0 8mm;gap:5mm;">
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1;">$2.4B</div>
+        <div style="font-size:7px;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;">Value Unlocked</div>
+      </div>
+      <div style="height:0.5px;background:rgba(255,255,255,0.2);"></div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1;">38%</div>
+        <div style="font-size:7px;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;">Cost Reduction</div>
+      </div>
+      <div style="height:0.5px;background:rgba(255,255,255,0.2);"></div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1;">14mo</div>
+        <div style="font-size:7px;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;">Delivery Timeline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content below image -->
+  <div style="position:absolute;top:82mm;left:0;right:0;bottom:10mm;padding:6mm 14mm;">
+
+    <!-- 3-column content grid -->
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:6mm;">
+
+      <!-- Left — project brief -->
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2.5mm;">The Challenge</div>
+        <h3 class="serif" style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3mm;">Rebuilding an Institution from the Inside Out</h3>
+        <p style="font-size:7.5px;line-height:1.8;color:var(--body);margin-bottom:3mm;">Meridian Financial Group — a tier-one European bank with $180B in assets — faced a critical inflection point. Legacy core banking infrastructure, built over three decades, was throttling growth, increasing operational risk, and eroding the customer experience that defined their market position.</p>
+        <p style="font-size:7.5px;line-height:1.8;color:var(--body);">Nexora was engaged to lead a full-scope transformation: decommissioning 14 legacy systems, migrating 3.2 million customer accounts, and deploying a cloud-native core banking platform — all without a single day of customer-facing downtime.</p>
+      </div>
+
+      <!-- Middle — approach -->
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2.5mm;">Our Approach</div>
+        <h3 class="serif" style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3mm;">Three-Phase Delivery</h3>
+        <div style="display:flex;flex-direction:column;gap:4mm;">
+          <div style="padding:8px 10px;border:1px solid var(--border);position:relative;">
+            <div style="position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--accent);"></div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:1.5mm;">PHASE 01 — DISCOVER</div>
+            <p style="font-size:7px;line-height:1.6;color:var(--body);">14-week diagnostic mapping 280+ processes, system interdependencies, and data quality across all business units.</p>
+          </div>
+          <div style="padding:8px 10px;border:1px solid var(--border);position:relative;">
+            <div style="position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--accent);"></div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:1.5mm;">PHASE 02 — BUILD</div>
+            <p style="font-size:7px;line-height:1.6;color:var(--body);">Parallel-track development with weekly sprint reviews, risk dashboards, and a dedicated Nexora war room embedded on-site.</p>
+          </div>
+          <div style="padding:8px 10px;border:1px solid var(--border);position:relative;">
+            <div style="position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--accent);"></div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:1.5mm;">PHASE 03 — LAUNCH</div>
+            <p style="font-size:7px;line-height:1.6;color:var(--body);">Big-bang cutover executed over a single weekend with zero customer-facing downtime and full regulatory sign-off.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — outcomes -->
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:2.5mm;">Outcomes &amp; Impact</div>
+        <h3 class="serif" style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3mm;">Results That Speak</h3>
+
+        <div style="display:flex;flex-direction:column;gap:3mm;">
+          <div class="kpi-box">
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;color:var(--accent);line-height:1;">99.97%</div>
+            <div style="font-size:6.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">System Uptime (12mo post-launch)</div>
+          </div>
+          <div class="kpi-box">
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;color:var(--accent);line-height:1;">4.8 / 5.0</div>
+            <div style="font-size:6.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Client NPS Post-Launch</div>
+          </div>
+          <div class="kpi-box">
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;color:var(--accent);line-height:1;">3.2M</div>
+            <div style="font-size:6.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Accounts Migrated Flawlessly</div>
+          </div>
+          <div class="kpi-box">
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;color:var(--accent);line-height:1;">0</div>
+            <div style="font-size:6.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Days of Customer Downtime</div>
+          </div>
+        </div>
+
+        <!-- Client quote -->
+        <div style="margin-top:3mm;padding:7px 9px;border-left:2px solid var(--accent);background:var(--accent-faint);">
+          <p style="font-family:'Playfair Display',serif;font-size:7.5px;font-style:italic;line-height:1.65;color:var(--ink);">"Nexora didn't just deliver a system — they fundamentally changed how we think about technology."</p>
+          <div style="font-size:6.5px;color:var(--muted);margin-top:3px;font-weight:600;">— Group CIO, Meridian Financial Group</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Nexora Group — Confidential</span>
+    <span style="font-weight:700;color:var(--accent);">06</span>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  PAGE 7 — BACK COVER / CONTACT                            ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<section class="page" id="back-cover" style="background:var(--ink);">
+
+  <!-- Geometric background SVG -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.1;" viewBox="0 0 794 1123" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="150" cy="900" r="350" fill="none" stroke="white" stroke-width="1"/>
+    <circle cx="150" cy="900" r="250" fill="none" stroke="white" stroke-width="0.5"/>
+    <circle cx="150" cy="900" r="150" fill="none" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="794" y2="700" stroke="white" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="794" y2="900" stroke="white" stroke-width="0.5"/>
+    <polygon points="600,0 794,0 794,300" fill="rgba(255,255,255,0.03)"/>
+  </svg>
+
+  <!-- Left accent block -->
+  <div style="position:absolute;left:0;top:0;bottom:0;width:38mm;background:var(--accent);opacity:0.9;z-index:1;"></div>
+
+  <!-- Left block vertical label -->
+  <div style="position:absolute;left:0;top:0;bottom:0;width:38mm;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+    <div style="width:1px;flex:1;max-height:80mm;background:rgba(255,255,255,0.3);"></div>
+    <span style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.7);writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase;">Get In Touch</span>
+    <div style="width:1px;flex:1;max-height:80mm;background:rgba(255,255,255,0.3);"></div>
+  </div>
+
+  <!-- Main back cover content -->
+  <div style="position:absolute;left:38mm;top:0;right:0;bottom:0;display:flex;flex-direction:column;padding:14mm 10mm 14mm 10mm;">
+
+    <!-- Top logo area -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:auto;">
+      <div style="width:28px;height:28px;">
+        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="13" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+          <circle cx="15" cy="15" r="6" fill="var(--accent)"/>
+          <line x1="15" y1="2" x2="15" y2="8" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+          <line x1="15" y1="22" x2="15" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+          <line x1="2" y1="15" x2="8" y2="15" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+          <line x1="22" y1="15" x2="28" y2="15" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <span style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;letter-spacing:4px;color:white;text-transform:uppercase;">NEXORA</span>
+    </div>
+
+    <!-- Central closing headline -->
+    <div style="margin-top:auto;margin-bottom:8mm;">
+      <h2 class="serif" style="font-size:42px;font-weight:800;line-height:1.1;color:white;letter-spacing:-0.5px;margin-bottom:5mm;">
+        Let's Build<br/>
+        <em style="color:var(--accent-light);">Something</em><br/>
+        Remarkable.
+      </h2>
+      <div style="width:40mm;height:2px;background:var(--accent);margin-bottom:5mm;"></div>
+      <p style="font-size:9px;line-height:1.8;color:rgba(255,255,255,0.55);max-width:95mm;">
+        We'd love to understand your challenges and explore how Nexora can help. Reach out to us — every great partnership begins with a conversation.
+      </p>
+    </div>
+
+    <!-- Contact grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-bottom:8mm;">
+
+      <div style="padding:12px 14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-light);margin-bottom:3mm;">London HQ</div>
+        <div style="font-size:8px;font-weight:600;color:white;margin-bottom:1mm;">Nexora Group, Inc.</div>
+        <div style="font-size:7.5px;line-height:1.7;color:rgba(255,255,255,0.5);">
+          40 Threadneedle Street<br/>
+          London, EC2R 8JH<br/>
+          United Kingdom
+        </div>
+      </div>
+
+      <div style="padding:12px 14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-light);margin-bottom:3mm;">New York Office</div>
+        <div style="font-size:8px;font-weight:600;color:white;margin-bottom:1mm;">Nexora Americas</div>
+        <div style="font-size:7.5px;line-height:1.7;color:rgba(255,255,255,0.5);">
+          1221 Avenue of the Americas<br/>
+          New York, NY 10020<br/>
+          United States
+        </div>
+      </div>
+
+      <div style="padding:12px 14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-light);margin-bottom:3mm;">General Enquiries</div>
+        <div style="font-size:7.5px;line-height:1.9;color:rgba(255,255,255,0.5);">
+          <div>hello@nexoragroup.com</div>
+          <div>new.business@nexoragroup.com</div>
+          <div>+44 (0) 20 7946 0800</div>
+        </div>
+      </div>
+
+      <div style="padding:12px 14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-light);margin-bottom:3mm;">Online</div>
+        <div style="font-size:7.5px;line-height:1.9;color:rgba(255,255,255,0.5);">
+          <div>www.nexoragroup.com</div>
+          <div>linkedin.com/company/nexora</div>
+          <div>@NexoraGroup</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom rule + copyright -->
+    <div style="border-top:0.5px solid rgba(255,255,255,0.12);padding-top:5mm;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Montserrat',sans-serif;letter-spacing:1px;">© 2024 Nexora Group, Inc. All rights reserved.</span>
+      <div style="display:flex;gap:6px;">
+        <div style="width:5px;height:5px;background:var(--accent);"></div>
+        <div style="width:5px;height:5px;background:rgba(255,255,255,0.2);"></div>
+        <div style="width:5px;height:5px;background:rgba(255,255,255,0.1);"></div>
+      </div>
+      <span style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Montserrat',sans-serif;letter-spacing:1px;">Company Profile 2024 / 25</span>
+    </div>
+  </div>
+
+</section>
+
+</div><!-- /page-wrapper -->
+
+<script>
+  // Smooth scroll to pages when nav links are clicked
+  document.querySelectorAll('.web-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Highlight active nav link based on scroll position
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('.web-nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.background = '';
+          link.style.color = '';
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.style.background = 'var(--accent)';
+            link.style.color = 'white';
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  pages.forEach(page => observer.observe(page));
+</script>
+</body>
+</html>
